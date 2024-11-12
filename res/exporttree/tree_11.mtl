@@ -1,0 +1,5 @@
+newmtl Grass_f_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+

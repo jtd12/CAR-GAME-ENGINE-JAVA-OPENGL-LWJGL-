@@ -1,0 +1,12 @@
+newmtl Bark_Maple_A
+Kd 1 1 1
+Tr 0,0009999871
+d 0,999
+illum 2
+
+newmtl Maple_Tatarian_mat
+Kd 1 1 1
+map_Kd null
+map_Bump null
+illum 2
+

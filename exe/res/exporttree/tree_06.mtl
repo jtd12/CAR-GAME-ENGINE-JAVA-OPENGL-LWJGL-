@@ -1,0 +1,13 @@
+newmtl Bark_Beech_A
+Kd 0,9852941 0,9852941 0,9852941
+Tr 0,0009999871
+d 0,999
+map_Kd null
+illum 2
+
+newmtl Walnut_Arizona_mat
+Kd 1 1 1
+map_Kd null
+map_Bump null
+illum 2
+

@@ -1,0 +1,59 @@
+newmtl Rooftop_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl BrickWall_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl WoodPlanks_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl Concrete_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl WoodSplit_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl WoodBoards_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl WoodPainted_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl Glass_mat
+Kd 0,3382352 0,3382352 0,3382352
+Tr 0,2392157
+d 0,7607843
+illum 2
+
+newmtl HardwoodFloor_mat
+Kd 1 1 1
+illum 2
+
+newmtl Metal_Bare_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl WoodBare_mat
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl lambert2
+Kd 0,5 0,5 0,5
+illum 2
+
