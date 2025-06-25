@@ -151,20 +151,28 @@ public class player extends entity {
 	        
 	        if (angleDiff > 180) angleDiff -= 360;
 	        if (angleDiff < -180) angleDiff += 360;
+	        
+	        float lateralOffset = 0;
+	        if (Math.random() < 0.5) { // 50% de chances d'aller à gauche ou à droite
+	            lateralOffset = 2.0f; // Décalage vers la droite
+	        } else {
+	            lateralOffset = -2.0f; // Décalage vers la gauche
+	        }
 
 	  
 	        super.setIncrementeRotY(angleDiff * 0.1f);
 	        //super.rotY += angleDiff * 0.1f;  // Turn towards the target
-	        
+	        float directionX = (float) Math.cos(Math.toRadians(super.getRotY()));
+	        float directionZ = (float) Math.sin(Math.toRadians(super.getRotY()));
 	        
 	        currentSpeed = speedAI/2;  // Fixed speed for simplicity
 	        
-	        position.x += Math.cos(Math.toRadians(super.getRotY())) * currentSpeed;
-	        position.z += Math.sin(Math.toRadians(super.getRotY())) * currentSpeed;
+	        position.x += directionX * currentSpeed - directionZ * lateralOffset;
+	        position.z += directionZ * currentSpeed + directionX * lateralOffset;
 
 	        // Check if we're close to the current waypoint
 	        float distance = (float) Math.sqrt(dx * dx + dy * dy);
-	        if (distance < 30.5f) {
+	        if (distance < 200.5f) {
 	            currentWaypoint = (currentWaypoint + 1) % waypoints.length;
 	        }
 	        

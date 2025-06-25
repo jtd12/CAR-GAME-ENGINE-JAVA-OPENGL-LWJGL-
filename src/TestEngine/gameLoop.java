@@ -1,5 +1,6 @@
 package TestEngine;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,9 +8,13 @@ import java.util.Random;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
+import FontCreators.FontType;
+import FontCreators.GUIText;
+import FontRendering.TextMaster;
 import entities.AABB;
 import entities.camera;
 import entities.collision;
@@ -46,6 +51,11 @@ public class gameLoop {
 		DisplayManager.createDisplay();
 		Display.setResizable(true);
 		loader loader = new loader();
+		TextMaster.init(loader);
+		float timer=0;
+		FontType font= new FontType(loader.loadTexture("GUI/verdana"),new File("res/GUI/verdana.fnt"));
+		GUIText text=new GUIText("time: 0",2,font,new Vector2f(-0.4f,0.9f),1f,true);
+		//text.setColour(1, 1, 0);
 		//terrain terrains=new terrain(0,0,loader,new modelTexture(loader.loadTexture("grass")));
 		//terrain terrains2=new terrain(1,0,loader,new modelTexture(loader.loadTexture("grass")));
 		//renderer renderer = new renderer();
@@ -319,9 +329,9 @@ public class gameLoop {
 		boundingboxCar.add(new player(p,textureModel,new Vector3f(100,-75,360),0,0,0,1,2,2,2));
 		boundingboxCar.add(new player(p,textureModel,new Vector3f(100,-75,360),0,0,0,1,2,2,2));
 		
-		for(int i=1;i<7;i++)
-			for(int j=1;j<7;j++)
-					p.add(new player(p,textureModel,new Vector3f(0+(i*1),-75,(j*75)+160),0,0,0,1,2,2,2));
+		for(int i=1;i<30;i++)
+		
+					p.add(new player(p,textureModel,new Vector3f(50+(i*20),-75,(390)),0,0,0,1,2,2,2));
 			
 		camera cam=new camera(p.get(0));
 		
@@ -339,7 +349,13 @@ public class gameLoop {
 		while (!Display.isCloseRequested()) {
 			// game logic
 			//entities.increaseRotation(0,1,0);
+			timer+=0.1f;
+			text.remove();
+			text=new GUIText("time: "+String.valueOf((int)timer),2,font,new Vector2f(-0.4f,0.9f),1f,true);
+			
 			cam.move();
+			
+
 			boundingboxCar.get(0).setParent(p.get(0),15);
 			boundingboxCar.get(1).setParent(p.get(0),-30);
 
@@ -402,6 +418,7 @@ public class gameLoop {
 					roues2_.get(i+3).setParent(p.get(i),terrains.get(0),9,14);
 					roues3_.get(i+1).setParent(p.get(i),terrains.get(0),-6.5f,-1.5f);
 					roues4_.get(i+3).setParent(p.get(i),terrains.get(0),-6.5f,-1.5f);
+					if(timer>10)
 				    p.get(i).updateAI(terrains.get(0));
 				    p.get(i).applySeparation();
 				    
@@ -449,6 +466,7 @@ public class gameLoop {
 					roues2_.get(i+3).setParent(p.get(i),terrains.get(1),9,14);
 					roues3_.get(i+1).setParent(p.get(i),terrains.get(1),-6.5f,-1.5f);
 					roues4_.get(i+3).setParent(p.get(i),terrains.get(1),-6.5f,-1.5f);
+					if(timer>10)
 					p.get(i).updateAI(terrains.get(1));
 					p.get(i).applySeparation();
 					
@@ -611,7 +629,7 @@ public class gameLoop {
 		    	
 		    }
 			
-		
+			if(timer>10)
 			p.get(0).move(terrains.get(0),roues_,roues2_);
 	
 			
@@ -655,7 +673,7 @@ public class gameLoop {
 		        }
 		    	
 		    }
-			
+			if(timer>10)
 			p.get(0).move(terrains.get(1),roues_,roues2_);
 			}
 			
@@ -678,6 +696,7 @@ public class gameLoop {
 
 			}
 			}
+			if(timer>10)
 			p.get(0).move(terrains.get(2),roues_,roues2_);
 			}
 			if(p.get(0).getTerrain4())
@@ -697,8 +716,10 @@ public class gameLoop {
 
 			}
 			}
+			if(timer>10)
 			p.get(0).move(terrains.get(3),roues_,roues2_);
 			}
+			
 			
 			GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 			//player_.move(terrains2);
@@ -729,6 +750,7 @@ public class gameLoop {
 			fbo2.unbindFrameBuffer();
 			
 			PostProcessing.doPostProcessing(fbo2.getColourTexture());
+	
 			//master.render(light_, cam);
 			
 			//entities.increaseRotation(0,1,0);
@@ -739,10 +761,12 @@ public class gameLoop {
 			//renderer.render(entities,shader);
 			//shader.stop();
 			//master.render(light_,cam);
+			TextMaster.render();
 			DisplayManager.updateDisplay();
 		}
 
 		//shader.cleanUp();
+		TextMaster.cleanUp();
 		PostProcessing.cleanUp();
 		fbo.cleanUp();
 		fbo2.cleanUp();
